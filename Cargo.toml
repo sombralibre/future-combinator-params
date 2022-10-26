@@ -1,0 +1,12 @@
+[package]
+name = "future-combinator-params"
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+description = "A simple functions to inject extra arguments between futures combinators Then/AndThen"
+homepage = "https://github.com/sombralibre/future-combinator-params"
+repository = "https://github.com/sombralibre/future-combinator-params"
+readme = "README.md"
+
+[dependencies]
+futures = "0.3"

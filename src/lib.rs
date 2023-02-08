@@ -4,7 +4,7 @@ use std::{boxed::Box, pin::Pin};
 
 pub fn combine_param<R, T, E>(
     t: T,
-) -> impl FnOnce(Result<R, E>) -> Pin<Box<dyn Future<Output = Result<(R, T), E>>>>
+) -> impl FnOnce(Result<R, E>) -> Pin<Box<dyn Future<Output = Result<(R, T), E>> + Sync + Send>>
 where
     R: Sized + 'static + Sync + Send,
     T: Sized + 'static + Sync + Send,
@@ -15,7 +15,7 @@ where
 
 pub fn combine_flat_param<R, T, E>(
     t: T,
-) -> impl FnOnce(R) -> Pin<Box<dyn Future<Output = Result<(R, T), E>>>>
+) -> impl FnOnce(R) -> Pin<Box<dyn Future<Output = Result<(R, T), E>> + Sync + Send>>
 where
     R: Sized + 'static + Sync + Send,
     T: Sized + 'static + Sync + Send,
@@ -23,14 +23,3 @@ where
 {
     |r: R| Box::pin(async { Ok((r, t)) })
 }
-
-/* #[cfg(test)]
-mod tests {
-    use super::{combine_flat_param, combine_param};
-
-    #[test]
-    fn it_works() {
-
-        //assert_eq!(result, 4);
-    }
-} */
